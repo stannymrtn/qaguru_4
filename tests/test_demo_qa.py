@@ -28,7 +28,7 @@ def test_demo_qa():
     browser.element('[for="hobbies-checkbox-2"]').click()
     browser.element('[for="hobbies-checkbox-3"]').click()
 
-    browser.element('input[type=file]').send_keys(os.path.abspath('cat.png'))
+    browser.element('#uploadPicture').send_keys(os.path.abspath('cat.png'))
 
     browser.element('#currentAddress').type('Penyimpanan Rekod Hiong Foong Sdn Bhd 266, Lorong 1/14Y')
 
