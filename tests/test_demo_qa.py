@@ -1,4 +1,4 @@
-from selene import browser, have, be, by
+from selene import browser, have, by
 import os
 
 
@@ -19,9 +19,9 @@ def test_demo_qa():
     browser.element('#dateOfBirthInput').click()
     browser.element('.react-datepicker__year-select').click().element('option[value="1990"]').click()
     browser.element('.react-datepicker__month-select').click().element('option[value="5"]').click()
-    browser.element('.react-datepicker__day--001').click()
+    browser.element('#react-select-2-option-0').click()
 
-    browser.element("#subjectsInput").set_value("che")
+    browser.element("#subjectsInput").type("che")
     browser.element(by.id('react-select-2-option-0')).should(have.text('Chemistry')).click()
 
     browser.element('[for="hobbies-checkbox-1"]').click()
