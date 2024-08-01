@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from selene import browser, have, command
+from selene import browser, have
 
 
 class RegistrationPage:
