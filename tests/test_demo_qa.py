@@ -1,4 +1,3 @@
-from selene import browser, have
 from pages.form_page import RegistrationPage
 
 
