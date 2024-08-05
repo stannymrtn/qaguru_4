@@ -1,6 +1,6 @@
-from pathlib import Path
-
 from selene import browser, have
+
+from path_utils import get_resource_path
 
 
 class RegistrationPage:
@@ -17,14 +17,15 @@ class RegistrationPage:
     def type_email(self, email):
         browser.element('#userEmail').type(email)
 
-    def type_birthday(self):
+    def type_birthday(self, month, year, day):
         browser.element('#dateOfBirthInput').click()
-        browser.element('.react-datepicker__month-select').type('June')
-        browser.element('.react-datepicker__year-select').type('1990')
-        browser.element('.react-datepicker__day--001:not(.react-datepicker__day--outside-month)').click()
+        browser.element('.react-datepicker__month-select').type(month)
+        browser.element('.react-datepicker__year-select').type(year)
+        browser.element(f'.react-datepicker__day--0{int(day):02d}:not(.react-datepicker__day--outside-month)').click()
 
-    def click_gender(self):
-        browser.all('[name=gender]').element_by(have.value('Male')).element('..').click()
+
+    def click_gender(self, gender):
+        browser.all('[name=gender]').element_by(have.value(gender)).element('..').click()
 
     def type_number(self, phone):
         browser.element('#userNumber').type(phone)
@@ -32,12 +33,11 @@ class RegistrationPage:
     def type_subjects(self, subjects):
         browser.element('#subjectsInput').type(subjects).press_enter()
 
-    def click_hobbies(self, hobbie):
-        browser.all('[for^=hobbies-checkbox]').element_by(have.text(hobbie)).click()
+    def click_hobby(self, hobby):
+        browser.all('[for^=hobbies-checkbox]').element_by(have.text(hobby)).click()
 
     def select_picture(self, file):
-        browser.element('[type="file"]').send_keys(str(Path(__file__).parent.parent.joinpath(
-            f'resources/{file}')))
+        browser.element('[type="file"]').send_keys(get_resource_path(file))
 
     def type_address(self, address):
         browser.element('#currentAddress').type(address)
