@@ -26,11 +26,11 @@ class RegistrationPage:
     def type_number(self, number):
         browser.element('#userNumber').type(number)
 
-    def type_birthday(self, month, year, day):
+    def type_birthday(self):
         browser.element('#dateOfBirthInput').click()
-        browser.element('.react-datepicker__year-select').click().element('option[value="1990"]').click()
-        browser.element('.react-datepicker__month-select').click().element('option[value="5"]').click()
-        browser.element(f'.react-datepicker__day--0{int(day):02d}:not(.react-datepicker__day--outside-month)').click()
+        browser.element('.react-datepicker__month-select').type('June')
+        browser.element('.react-datepicker__year-select').type('1990')
+        browser.element('.react-datepicker__day--001:not(.react-datepicker__day--outside-month)').click()
 
     def type_state(self, state):
         browser.element('#state').click()
@@ -40,10 +40,10 @@ class RegistrationPage:
 
     def type_subjects(self, subjects):
         browser.element("#subjectsInput").type(subjects)
-        browser.element('#react-select-2-option-0').should(have.text('Chemistry')).click()
+        browser.element('#react-select-2-option-0').should(have.text(subjects)).click()
 
-    def click_hobby(self):
-        browser.all('[for^=hobbies-checkbox]').element_by(have.text('Sports')).click()
+    def click_hobby(self, hobby):
+        browser.all('[for^=hobbies-checkbox]').element_by(have.text(hobby)).click()
 
     def select_picture(self, file):
         browser.element('[type="file"]').send_keys(str(Path(__file__).parent.parent.joinpath(
@@ -74,7 +74,7 @@ class RegistrationPage:
                              f'{user.number}',
                              f'{user.birthday}',
                              f'{user.subject}',
-                             f'{user.hobbie}',
+                             f'{user.hobby}',
                              f'{user.picture}',
                              f'{user.address}',
                              f'{user.state} {user.city}'))
@@ -83,11 +83,11 @@ class RegistrationPage:
         self.type_first_name(user.first_name)
         self.type_last_name(user.last_name)
         self.type_email(user.email)
-        self.click_gender()
+        self.click_gender(user.gender)
         self.type_number(user.number)
         self.type_birthday()
         self.type_subjects(user.subject)
-        self.click_hobbies()
+        self.click_hobby(user.hobby)
         self.select_picture(user.picture)
         self.type_address(user.address)
         self.type_state(user.state)
