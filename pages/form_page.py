@@ -18,19 +18,19 @@ class RegistrationPage:
         browser.element('#lastName').type(value)
 
     def type_email(self, email):
-        browser.element('#userEmail').type('test@mail.com')
+        browser.element('#userEmail').type(email)
 
-    def click_gender(self):
-        browser.all('[name=gender]').element_by(have.value('Male')).element('..').click()
+    def click_gender(self, gender):
+        browser.all('[name=gender]').element_by(have.value(gender)).element('..').click()
 
-    def type_number(self, param):
-        browser.element('#userNumber').type('7917000000')
+    def type_number(self, number):
+        browser.element('#userNumber').type(number)
 
-    def type_birthday(self):
+    def type_birthday(self, month, year, day):
         browser.element('#dateOfBirthInput').click()
         browser.element('.react-datepicker__year-select').click().element('option[value="1990"]').click()
         browser.element('.react-datepicker__month-select').click().element('option[value="5"]').click()
-        browser.element('.react-datepicker__day--001:not(.react-datepicker__day--outside-month)').click()
+        browser.element(f'.react-datepicker__day--0{int(day):02d}:not(.react-datepicker__day--outside-month)').click()
 
     def type_state(self, state):
         browser.element('#state').click()
@@ -42,7 +42,7 @@ class RegistrationPage:
         browser.element("#subjectsInput").type(subjects)
         browser.element('#react-select-2-option-0').should(have.text('Chemistry')).click()
 
-    def click_hobbies(self):
+    def click_hobby(self):
         browser.all('[for^=hobbies-checkbox]').element_by(have.text('Sports')).click()
 
     def select_picture(self, file):

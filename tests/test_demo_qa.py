@@ -12,7 +12,7 @@ def test_student_registration_form():
                   birthday='01 June,1990',
                   subject='Chemistry',
                   picture='cat.png',
-                  hobbie='Sports',
+                  hobby='Sports',
                   address='Penyimpanan Rekod Hiong Foong Sdn Bhd 266, Lorong 1/14Y',
                   state='Haryana',
                   city='Karnal')
