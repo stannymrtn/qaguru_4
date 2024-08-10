@@ -7,66 +7,86 @@ from test_data.user import User
 
 class RegistrationPage:
 
-    def open(self):
+    @staticmethod
+    def open():
         browser.open('/automation-practice-form')
         browser.element('.practice-form-wrapper').should(have.text('Student Registration Form'))
 
-    def type_first_name(self, value):
+    @staticmethod
+    def type_first_name(value):
         browser.element('#firstName').type(value)
 
-    def type_last_name(self, value):
+    @staticmethod
+    def type_last_name(value):
         browser.element('#lastName').type(value)
 
-    def type_email(self, email):
+    @staticmethod
+    def type_email(email):
         browser.element('#userEmail').type(email)
 
-    def click_gender(self, gender):
+    @staticmethod
+    def click_gender(gender):
         browser.all('[name=gender]').element_by(have.value(gender)).element('..').click()
 
-    def type_number(self, number):
+    @staticmethod
+    def type_number(number):
         browser.element('#userNumber').type(number)
 
-    def type_birthday(self):
+    @staticmethod
+    def type_birthday(birthday):
+        day_month, year = birthday.split(',')
+        day, month = day_month.split(',')
+        day = day.zfill(2)
         browser.element('#dateOfBirthInput').click()
         browser.element('.react-datepicker__month-select').type('June')
         browser.element('.react-datepicker__year-select').type('1990')
-        browser.element('.react-datepicker__day--001:not(.react-datepicker__day--outside-month)').click()
+        browser.element(f'.react-datepicker__day--0{day}:not(.react-datepicker__day--outside-month)').click()
 
-    def type_state(self, state):
+    @staticmethod
+    def type_state(state):
         browser.element('#state').click()
         browser.all('[id^=react-select][id*=option]').element_by(
             have.exact_text(state)
         ).click()
 
-    def type_subjects(self, subjects):
+    @staticmethod
+    def type_subjects(subjects):
         browser.element("#subjectsInput").type(subjects)
         browser.element('#react-select-2-option-0').should(have.text(subjects)).click()
 
-    def click_hobby(self, hobby):
+    @staticmethod
+    def click_hobby(hobby):
         browser.all('[for^=hobbies-checkbox]').element_by(have.text(hobby)).click()
 
-    def select_picture(self, file):
+    @staticmethod
+    def select_picture(file):
         browser.element('[type="file"]').send_keys(str(Path(__file__).parent.parent.joinpath(
             f'resources/{file}')))
 
-    def type_address(self, address):
+    @staticmethod
+    def type_address(address):
         browser.element('#currentAddress').type(address)
 
-    def type_state(self, state):
+    @staticmethod
+    def type_states(state):
         browser.element('#state').click().element('#react-select-3-option-2').should(have.text(state)).click()
 
-    def type_city(self, city):
+    @staticmethod
+    def type_city(city):
         browser.element('#city').click().element('#react-select-4-option-0').should(have.text(city)).click()
 
-    def click_submit(self):
+    @staticmethod
+    def click_submit():
         browser.element('#submit').click()
 
-    def should_text(self, text):
+    @staticmethod
+    def should_text(text):
         browser.element('[id=example-modal-sizes-title-lg]').should(
             have.exact_text(text)
         )
 
-    def should_registered_user_with(self, user: User):
+    @staticmethod
+    def should_registered_user_with(user: User):
         browser.element('.table').all('td').even.should(
             have.exact_texts(f'{user.first_name} {user.last_name}',
                              f'{user.email}',
@@ -85,7 +105,7 @@ class RegistrationPage:
         self.type_email(user.email)
         self.click_gender(user.gender)
         self.type_number(user.number)
-        self.type_birthday()
+        self.type_birthday(user.birthday)
         self.type_subjects(user.subject)
         self.click_hobby(user.hobby)
         self.select_picture(user.picture)
