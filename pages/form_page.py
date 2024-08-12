@@ -35,7 +35,7 @@ class RegistrationPage:
     @staticmethod
     def type_birthday(birthday):
         day_month, year = birthday.split(',')
-        day, month = day_month.split(',')
+        day, month = day_month.split(' ')
         day = day.zfill(2)
         browser.element('#dateOfBirthInput').click()
         browser.element('.react-datepicker__month-select').type(month)
