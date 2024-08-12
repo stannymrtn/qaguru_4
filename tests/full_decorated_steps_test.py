@@ -19,7 +19,7 @@ def test_decorator_steps():
 
 @allure.step('Открываем github')
 def open_page():
-    browser.open('https://github.com')
+    browser.open('/')
 
 
 @allure.step('Поиск репозитория {repo}')
