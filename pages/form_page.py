@@ -38,8 +38,8 @@ class RegistrationPage:
         day, month = day_month.split(',')
         day = day.zfill(2)
         browser.element('#dateOfBirthInput').click()
-        browser.element('.react-datepicker__month-select').type('June')
-        browser.element('.react-datepicker__year-select').type('1990')
+        browser.element('.react-datepicker__month-select').type(month)
+        browser.element('.react-datepicker__year-select').type(year)
         browser.element(f'.react-datepicker__day--0{day}:not(.react-datepicker__day--outside-month)').click()
 
     @staticmethod
