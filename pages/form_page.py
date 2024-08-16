@@ -1,4 +1,4 @@
-from selene import browser, have
+from selene import browser, have, command
 
 from path_utils import get_resource_path
 
@@ -54,7 +54,9 @@ class RegistrationPage:
 
     @staticmethod
     def type_state(state):
-        browser.element('#state').click()
+        button = browser.element('#state')
+        button.perform(command.js.scroll_into_view)
+        button.click()
         browser.all('[id^=react-select][id*=option]').element_by(
             have.exact_text(state)
         ).click()
